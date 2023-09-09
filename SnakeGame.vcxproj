@@ -146,7 +146,6 @@
   <ItemGroup>
     <ClInclude Include="Food.hpp" />
     <ClInclude Include="Snake.hpp" />
-    <ClInclude Include="SnakeGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

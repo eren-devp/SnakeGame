@@ -1,5 +1,6 @@
 #pragma once
 #include <deque>
+#include <string>
 
 class Snake {
 public:
@@ -10,16 +11,28 @@ public:
 	void SetDirection(int _dir);
 	void SetHead(std::pair<int, int> _head);
 
+	// Symbol of the snake.
+	std::string* GetSymbol();
 
-	const char GetSymbol();
-	std::pair<int, int> GetHead();
+	// Length of the snake.
+	int* GetLength();
+
+	// Snake's head's position.
+	std::pair<int, int>* GetHead();
+	
+	// Snake's body's positions. (head included)
+	std::deque<std::pair<int, int>> GetSnake();
+
+	// Snake's body's positions. (head excluded)
 	std::deque<std::pair<int, int>> GetSnakeBody();
+
+	// Deque of the snake's former and current positions.
 	std::deque<std::pair<int, int>> GetSnakePositions();
 
-	int length = 1;
 private:
-	int direction = 1;
-	const char symbol = 'O';
+	int* length;
+	int* direction = new int(1);
 
+	std::string* symbol = new std::string("O");
 	std::deque<std::pair<int, int>> snakePositions = {};
 };

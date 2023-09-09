@@ -32,8 +32,5 @@
     <ClInclude Include="Food.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SnakeGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
