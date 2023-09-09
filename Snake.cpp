@@ -36,6 +36,15 @@ void Snake::Grow()
 
 void Snake::SetDirection(int _dir)
 {
+	if (*direction == 0 && _dir == 2)
+		return;
+	else if (*direction == 1 && _dir == 3)
+		return;
+	else if (*direction == 2 && _dir == 0)
+		return;
+	else if (*direction == 3 && _dir == 1)
+		return;
+
 	*direction = _dir;
 }
 
