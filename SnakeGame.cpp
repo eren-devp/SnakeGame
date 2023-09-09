@@ -12,11 +12,10 @@ bool* run = new bool(true);
 int* foodX = new int(0);
 int* foodY = new int(0);
 
-
 const int fps = 60;
 const int* width = new int(40);
 const int* height = new int(20);
-const int* goal = new int(5);
+const int* goal = new int(10);
 const DWORD* sleepTime = new DWORD(1000 / fps);
 
 Snake* snake;
@@ -59,8 +58,8 @@ void Draw() {
                     continue;
 
                 // Drawing the food.
-                else if (food->GetPosition() == *currentGrid) {
-                    std::cout << food->GetSymbol();
+                else if (*food->GetPosition() == *currentGrid) {
+                    std::cout << *food->GetSymbol();
                 }
 
                 // Means empty grid.
@@ -108,7 +107,7 @@ void Logic() {
     }
 
     // Handling the eating.
-    if (*snake->GetHead() == food->GetPosition()) {
+    if (*snake->GetHead() == *food->GetPosition()) {
         // debugmsg += "grew - ";
         snake->Grow();
 
@@ -166,7 +165,6 @@ void Logic() {
 void Debug() {
     // system("cls");
     // std::cout << debugmsg << std::endl;
-    std::cout << snake->GetSnakePositions().size() << std::endl;
     std::cout << "SnakeBodyL: " << snake->GetSnake().size() << std::endl;
     std::cout << "SnakeHead: " << snake->GetHead()->first << " " << snake->GetHead()->second << std::endl;
 }

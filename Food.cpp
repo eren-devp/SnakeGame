@@ -2,20 +2,21 @@
 
 Food::Food(std::pair<int, int> _position)
 {
-	position = _position;
+	delete position;
+	position = new std::pair<int, int>(_position);
 }
 
 void Food::SetPosition(std::pair<int, int> _position)
 {
-	position = _position;
+	*position = _position;
 }
 
-const char Food::GetSymbol()
+std::string* Food::GetSymbol()
 {
 	return symbol;
 }
 
-std::pair<int, int> Food::GetPosition()
+std::pair<int, int>* Food::GetPosition()
 {
 	return position;
 }

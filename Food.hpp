@@ -1,8 +1,6 @@
 #pragma once
 #include <iostream>
-
 #include "Food.hpp"
-
 
 class Food {
 public:
@@ -10,11 +8,11 @@ public:
 
 	void SetPosition(std::pair<int, int> _position);
 	
-	const char GetSymbol();
-	std::pair<int, int> GetPosition();
+	std::string* GetSymbol();
+	std::pair<int, int>* GetPosition();
 
 private:
-	const char symbol = '*';
+	std::string* symbol = new std::string("*");
 
-	std::pair<int, int> position;
+	std::pair<int, int>* position;
 };

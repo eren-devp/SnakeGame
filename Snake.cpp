@@ -68,8 +68,3 @@ std::deque<std::pair<int, int>> Snake::GetSnakeBody()
 {
 	return std::deque<std::pair<int, int>>(snakePositions.begin() + 1, snakePositions.begin() + *length);
 }
-
-std::deque<std::pair<int, int>> Snake::GetSnakePositions()
-{
-	return snakePositions;
-}

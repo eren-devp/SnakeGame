@@ -26,9 +26,6 @@ public:
 	// Snake's body's positions. (head excluded)
 	std::deque<std::pair<int, int>> GetSnakeBody();
 
-	// Deque of the snake's former and current positions.
-	std::deque<std::pair<int, int>> GetSnakePositions();
-
 private:
 	int* length;
 	int* direction = new int(1);
