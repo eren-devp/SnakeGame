@@ -15,7 +15,7 @@ int* foodY = new int(0);
 const int fps = 60;
 const int* width = new int(40);
 const int* height = new int(20);
-const int* goal = new int(10);
+const int* goal = new int(100);
 const DWORD* sleepTime = new DWORD(1000 / fps);
 
 Snake* snake;
@@ -139,25 +139,22 @@ void Logic() {
 
     // Handling the border collisions. {killed the optimization here lol}
     if (snake->GetHead()->first < 1 || snake->GetHead()->first > *width || snake->GetHead()->second < 1 || snake->GetHead()->second > *height) {
-        std::cout << "You're out of range just like my arrays." << std::endl;
         *alive = false;
-        exit(EXIT_SUCCESS);
+        throw std::exception("You're out of range just like my arrays.");
     }
 
     // Handling the snake's eating itself.
     for (auto body : snake->GetSnakeBody()) {
         if (body == *snake->GetHead()) {
-            std::cout << "You ate yourself lmao." << std::endl;
             *alive = false;
-            exit(EXIT_SUCCESS);
+            throw std::exception("You ate yourself lmao.");
         }
     }
 
     // Handling the winning the game.
     if (*snake->GetLength() == *goal) {
-        std::cout << "You won!" << std::endl;
         *alive = false;
-        exit(EXIT_SUCCESS);
+        throw std::exception("You won!");
     }
 }
 
@@ -172,11 +169,17 @@ void Debug() {
 int main()
 {
     Setup();
-
-    while (*alive) {
-        Logic();
-        // Debug();
-        Draw();
-        Sleep(*sleepTime);
+    try {
+        while (*alive) {
+            Logic();
+            // Debug();
+            Draw();
+            Sleep(*sleepTime);
+        }
     }
+    catch (std::exception e) {
+        std::cout << e.what() << std::endl;
+    }
+    char foo;
+    std::cin >> foo;
 }
