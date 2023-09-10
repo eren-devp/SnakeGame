@@ -27,6 +27,8 @@ void Snake::Move()
 		// Move left.
 		SetHead(std::make_pair(head->first - 1, head->second));
 	}
+	delete head;
+	snakePositions = std::deque<std::pair<int, int>>(snakePositions.begin(), snakePositions.begin() + *length + 1);
 }
 
 void Snake::Grow()
@@ -53,7 +55,7 @@ void Snake::SetHead(std::pair<int, int> _head)
 	snakePositions.emplace_front(_head);
 }
 
-std::string* Snake::GetSymbol()
+const std::string* Snake::GetSymbol()
 {
 	return symbol;
 }

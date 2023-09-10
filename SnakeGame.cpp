@@ -8,15 +8,13 @@
 // std::string debugmsg = ""; // For debugging the game.
 
 bool* alive = new bool(true);
-bool* run = new bool(true);
-int* foodX = new int(0);
-int* foodY = new int(0);
+bool* snakeDrawed = new bool(false);
 
 const int fps = 60;
 const int* width = new int(40);
 const int* height = new int(20);
 const int* goal = new int(100);
-const DWORD* sleepTime = new DWORD(1000 / fps);
+const DWORD* sleepTimePtr = new DWORD(1000 / fps);
 
 Snake* snake;
 Food* food;
@@ -43,7 +41,7 @@ void Draw() {
                 std::cout << "#"; // Drawing the side lines.
             }
             else {
-                bool* snakeDrawed = new bool(false);
+                *snakeDrawed = false;
                 std::pair<int, int>* currentGrid = new std::pair<int, int>(x, y);
 
                 // Drawing the snake.
@@ -68,7 +66,6 @@ void Draw() {
                 }
 
                 delete currentGrid;
-                delete snakeDrawed;
             }
         }
         std::cout << std::endl;
@@ -111,28 +108,32 @@ void Logic() {
         // debugmsg += "grew - ";
         snake->Grow();
 
-        std::pair<int, int> foodPair = std::make_pair(*foodX, *foodY);
+        bool* run = new bool(true);
+        int* foodX = new int(1 + (rand() % static_cast<int>(*width)));
+        int* foodY = new int(1 + (rand() % static_cast<int>(*height)));
+        std::pair<int, int>* foodPair = new std::pair<int, int>(*foodX, *foodY);
 
         while (*run) {
             *foodX = 1 + (rand() % static_cast<int>(*width));
             *foodY = 1 + (rand() % static_cast<int>(*height));
 
-            foodPair = std::pair<int, int>(*foodX, *foodY);
+            *foodPair = std::pair<int, int>(*foodX, *foodY);
             *run = false;
 
             // debugmsg += "runned - ";
             for (auto snakePair : snake->GetSnake()) {
-                if (snakePair == foodPair) {
+                if (snakePair == *foodPair) {
                     *run = true;
                     // debugmsg += "tryin again - ";
                     break;
                 }
             }
         }
-        food->SetPosition(foodPair);
-        *run = true;
-        *foodX = 0;
-        *foodY = 0;
+        food->SetPosition(*foodPair);
+        delete foodPair;
+        delete foodX;
+        delete foodY;
+        delete run;
     }
 
     snake->Move();
@@ -174,7 +175,7 @@ int main()
             Logic();
             // Debug();
             Draw();
-            Sleep(*sleepTime);
+            Sleep(*sleepTimePtr);
         }
     }
     catch (std::exception e) {

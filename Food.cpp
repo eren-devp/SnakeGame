@@ -11,7 +11,7 @@ void Food::SetPosition(std::pair<int, int> _position)
 	*position = _position;
 }
 
-std::string* Food::GetSymbol()
+const std::string* Food::GetSymbol()
 {
 	return symbol;
 }

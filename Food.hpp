@@ -8,11 +8,11 @@ public:
 
 	void SetPosition(std::pair<int, int> _position);
 	
-	std::string* GetSymbol();
+	const std::string* GetSymbol();
 	std::pair<int, int>* GetPosition();
 
 private:
-	std::string* symbol = new std::string("*");
+	const std::string* symbol = new std::string("*");
 
 	std::pair<int, int>* position;
 };

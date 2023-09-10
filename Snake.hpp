@@ -12,7 +12,7 @@ public:
 	void SetHead(std::pair<int, int> _head);
 
 	// Symbol of the snake.
-	std::string* GetSymbol();
+	const std::string* GetSymbol();
 
 	// Length of the snake.
 	int* GetLength();
@@ -30,6 +30,6 @@ private:
 	int* length;
 	int* direction = new int(1);
 
-	std::string* symbol = new std::string("O");
+	const std::string* symbol = new std::string("O");
 	std::deque<std::pair<int, int>> snakePositions = {};
 };
