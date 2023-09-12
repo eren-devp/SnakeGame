@@ -1,20 +1,21 @@
+#include <chrono>
+#include <thread>
+#include <conio.h>
 #include <iostream>
 #include <Windows.h>
-#include <conio.h>
 
-#include "Snake.hpp"
 #include "Food.hpp"
+#include "Snake.hpp"
 
 // std::string debugmsg = ""; // For debugging the game.
 
 bool* snakeDrawed = new bool(false);
 
-const int fps = 60;
+const int fps = 10;
 const int* width = new int(40);
 const int* height = new int(20);
 const int* goal = new int(100);
-
-const DWORD* sleepTimePtr = new DWORD(1000 / fps);
+const int* sleepTimePtr = new int(1000 / fps);
 
 Snake* snake;
 Food* food;
@@ -168,11 +169,16 @@ int main()
 {
     Setup();
     try {
+
+        std::chrono::time_point<std::chrono::system_clock> t = std::chrono::system_clock::now();
+        
         while (true) {
             Logic();
             // Debug();
             Draw();
-            Sleep(*sleepTimePtr);
+
+            t += std::chrono::milliseconds(*sleepTimePtr);
+            std::this_thread::sleep_until(t);
         }
     }
     catch (std::exception e) {
