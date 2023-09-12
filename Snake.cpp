@@ -33,7 +33,7 @@ void Snake::Move()
 
 void Snake::Grow()
 {
-	*length += 1;
+	*length = *length + 1;
 }
 
 void Snake::SetDirection(int _dir)

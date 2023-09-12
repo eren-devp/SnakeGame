@@ -7,24 +7,26 @@
 
 // std::string debugmsg = ""; // For debugging the game.
 
-bool* alive = new bool(true);
 bool* snakeDrawed = new bool(false);
 
 const int fps = 60;
 const int* width = new int(40);
 const int* height = new int(20);
 const int* goal = new int(100);
+
 const DWORD* sleepTimePtr = new DWORD(1000 / fps);
 
 Snake* snake;
 Food* food;
+
+std::pair<int, int>* currentGrid = new std::pair<int, int>();
 
 void Setup() {
     delete snake;
     delete food;
 
     snake = new Snake(std::make_pair(*width / 2, *height / 2));
-    food = new Food(std::make_pair(35, *height / 2));
+    food = new Food(std::make_pair(ceil(*width * 2 / 3), *height / 2));
 }
 
 void Draw() {
@@ -42,7 +44,7 @@ void Draw() {
             }
             else {
                 *snakeDrawed = false;
-                std::pair<int, int>* currentGrid = new std::pair<int, int>(x, y);
+                *currentGrid = std::pair<int, int>(x, y);
 
                 // Drawing the snake.
                 for (auto pair : snake->GetSnake()) {
@@ -64,8 +66,6 @@ void Draw() {
                 else {
                     std::cout << " ";
                 }
-
-                delete currentGrid;
             }
         }
         std::cout << std::endl;
@@ -140,21 +140,18 @@ void Logic() {
 
     // Handling the border collisions. {killed the optimization here lol}
     if (snake->GetHead()->first < 1 || snake->GetHead()->first > *width || snake->GetHead()->second < 1 || snake->GetHead()->second > *height) {
-        *alive = false;
         throw std::exception("You're out of range just like my arrays.");
     }
 
     // Handling the snake's eating itself.
     for (auto body : snake->GetSnakeBody()) {
         if (body == *snake->GetHead()) {
-            *alive = false;
             throw std::exception("You ate yourself lmao.");
         }
     }
 
     // Handling the winning the game.
     if (*snake->GetLength() == *goal) {
-        *alive = false;
         throw std::exception("You won!");
     }
 }
@@ -171,7 +168,7 @@ int main()
 {
     Setup();
     try {
-        while (*alive) {
+        while (true) {
             Logic();
             // Debug();
             Draw();
