@@ -184,5 +184,5 @@ int main()
     catch (std::exception e) {
         std::cout << e.what() << std::endl;
     }
-    Sleep(3000);
+    std::cin.get();
 }
